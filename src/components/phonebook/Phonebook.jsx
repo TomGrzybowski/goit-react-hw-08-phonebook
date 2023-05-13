@@ -7,20 +7,7 @@ import { useDispatch } from 'react-redux';
 import { loadContacts } from 'components/redux/actions.js';
 
 const Phonebook = () => {
-  // const [contacts, setContacts] = useState([]);
-  // const [filter, setFilter] = useState('');
-
   const dispatch = useDispatch();
-
-  // useEffect(() => {
-  //   const localStorageContacts = localStorage.getItem('contacts');
-
-  // if (localStorageContacts) {
-  //   dispatch(loadContacts(JSON.parse(localStorageContacts)));
-  // } else {
-  //   localStorage.setItem('contacts', JSON.stringify([]));
-  // }
-  // }, [dispatch]);
 
   useEffect(() => {
     async function fetchContacts() {
