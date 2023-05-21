@@ -1,34 +1,29 @@
-import { deleteContact } from 'components/redux/actions.js';
-import {
-  getStatusContacts,
-  getStatusFilter,
-} from 'components/redux/selectors.js';
+import { selectContacts } from 'components/redux/contacts/selectors.js';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
+import axios from 'axios';
+import { useEffect } from 'react';
+import {
+  deleteContacts,
+  fetchContacts,
+} from 'components/redux/contacts/operations.js';
+import { getStatusFilter } from 'components/redux/selectors.js';
+
+axios.defaults.baseURL = 'https:/connections-api.herokuapp.com';
 
 const ContactList = () => {
-  const contacts = useSelector(getStatusContacts);
   const filter = useSelector(getStatusFilter);
-  const shownContacts = contacts.filter(person => person.name.includes(filter));
 
+  const contacts = useSelector(selectContacts);
+  const shownContacts = contacts.filter(person => person.name.includes(filter));
   const dispatch = useDispatch();
 
+  useEffect(() => {
+    dispatch(fetchContacts());
+  }, [dispatch]);
+
   const handleDelete = id => {
-    fetch(`https://645edbd59d35038e2d18dbec.mockapi.io/contacts/${id}`, {
-      method: 'DELETE',
-    })
-      .then(res => {
-        if (res.ok) {
-          dispatch(deleteContact(id));
-          return res.json();
-        }
-      })
-      .then(contact => {
-        console.log(`${contact} has been deleted`);
-      })
-      .catch(error => {
-        console.log(`contact has NOT been deleted`);
-      });
+    dispatch(deleteContacts(id));
   };
   return (
     <ul>
