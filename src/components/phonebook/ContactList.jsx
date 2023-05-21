@@ -9,7 +9,7 @@ import {
 } from 'components/redux/contacts/operations.js';
 import { getStatusFilter } from 'components/redux/selectors.js';
 
-axios.defaults.baseURL = 'https:/connections-api.herokuapp.com';
+axios.defaults.baseURL = 'https://connections-api.herokuapp.com';
 
 const ContactList = () => {
   const filter = useSelector(getStatusFilter);

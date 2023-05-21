@@ -7,7 +7,7 @@ import { addContacts } from 'components/redux/contacts/operations.js';
 import { selectContacts } from 'components/redux/contacts/selectors.js';
 import { Notify } from 'notiflix';
 
-axios.defaults.baseURL = 'https:/connections-api.herokuapp.com';
+axios.defaults.baseURL = 'https://connections-api.herokuapp.com';
 
 const ContactForm = () => {
   const [name, setName] = useState('');

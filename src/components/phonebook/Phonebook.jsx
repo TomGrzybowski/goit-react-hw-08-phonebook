@@ -4,7 +4,7 @@ import Filter from './Filter.jsx';
 import PropTypes from 'prop-types';
 import axios from 'axios';
 
-axios.defaults.baseURL = 'https:/connections-api.herokuapp.com';
+axios.defaults.baseURL = 'https://connections-api.herokuapp.com';
 
 const Phonebook = () => {
   return (
