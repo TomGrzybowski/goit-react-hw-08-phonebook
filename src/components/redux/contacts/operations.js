@@ -1,5 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
+import { Notify } from 'notiflix';
 
 // axios.defaults.baseURL = 'https:/connections-api.herokuapp.com';
 
@@ -23,6 +24,7 @@ export const addContacts = createAsyncThunk(
   async (contact, thunkAPI) => {
     try {
       const response = await axios.post('contacts', contact);
+      Notify.success('Contact added');
       return response.data;
     } catch (e) {
       return thunkAPI.rejectWithValue(e.message);

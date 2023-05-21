@@ -1,16 +1,18 @@
 import css from './phonebook.module.css';
 import PropTypes from 'prop-types';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useState } from 'react';
 import axios from 'axios';
 import { addContacts } from 'components/redux/contacts/operations.js';
+import { selectContacts } from 'components/redux/contacts/selectors.js';
+import { Notify } from 'notiflix';
 
 axios.defaults.baseURL = 'https:/connections-api.herokuapp.com';
 
 const ContactForm = () => {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
-  // const contacts = useSelector(getStatusContacts);
+  const contacts = useSelector(selectContacts);
   const dispatch = useDispatch();
 
   const handleSubmit = e => {
@@ -23,6 +25,11 @@ const ContactForm = () => {
     const number = form.elements.number.value;
 
     if (name !== '' && number !== '') {
+      const existingContact = contacts.find(contact => contact.name === name);
+      if (existingContact) {
+        Notify.failure(`A contact with the name '${name}' already exists.`);
+        return;
+      }
       dispatch(addContacts({ name, number }));
       form.reset();
       return;
